@@ -86,8 +86,9 @@ END_OF_MESSAGE
       Net::SMTP.start(settings['program_email']['mail_server'],
                       settings['program_email']['mail_port'],
                       'localhost',
-                      settings['program_email']['email_address'],
-                      settings['program_email']['password'], settings['program_email']['auth_type'].to_sym) do |smtp|
+                      settings['program_email']['login'],
+                      settings['program_email']['password'],
+                      settings['program_email']['auth_type'].to_sym) do |smtp|
         smtp.send_message msg, from, to
       end
     end

@@ -8,6 +8,7 @@ settings:
     mail_server:
     mail_port: 25
     email_address:
+    login:
     password:
     auth_type: login # or plain
     tls: true
