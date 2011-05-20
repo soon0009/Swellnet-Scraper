@@ -31,9 +31,9 @@ module SwellnetScraper
   end
 
   def self.run
-    raise "Your config/settings.yml file is missing" unless File.exists?(File.join(FileUtils.pwd, 'settings.yml'))
-    raise "Your config/swellnet_pages.yml file is missing" unless File.exists?(File.join(FileUtils.pwd, 'swellnet_pages.yml'))
-    raise "Your config/surfers.yml file is missing" unless File.exists?(File.join(FileUtils.pwd, 'surfers.yml'))
+    raise "Your ./settings.yml file is missing" unless File.exists?(File.join(FileUtils.pwd, 'settings.yml'))
+    raise "Your ./swellnet_pages.yml file is missing" unless File.exists?(File.join(FileUtils.pwd, 'swellnet_pages.yml'))
+    raise "Your ./surfers.yml file is missing" unless File.exists?(File.join(FileUtils.pwd, 'surfers.yml'))
     swellnet_pages.each do |page|
       doc = ''
       Net::HTTP::Proxy(settings['proxy']['host'],
