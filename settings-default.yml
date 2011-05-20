@@ -1,0 +1,15 @@
+settings:
+  proxy:
+    host:
+    port: 8080
+    user:
+    password:
+  program_email: 
+    mail_server:
+    mail_port: 25
+    email_address:
+    password:
+    auth_type: login # or plain
+    tls: true
+    append_to_subject: ''
+  tmp_dir: './tmp/'
