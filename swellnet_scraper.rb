@@ -10,30 +10,30 @@ require 'fileutils'
 require 'yaml'
 
 module SwellnetScraper
-  DEBUG = false.freeze
+  DEBUG = true.freeze
 
   @@settings = nil
   def self.settings
     @@settings || begin
-      YAML.load_file(File.join(FileUtils.pwd, 'settings.yml'))['settings']
+      YAML.load_file(File.join(File.dirname(__FILE__), 'settings.yml'))['settings']
     end
   end
 
   def self.swellnet_pages
-    YAML.load_file(File.join(FileUtils.pwd, 'swellnet_pages.yml'))['swellnet_pages']
+    YAML.load_file(File.join(File.dirname(__FILE__), 'swellnet_pages.yml'))['swellnet_pages']
   end
 
   @@surfers = nil
   def self.surfers
     @@surfers || begin
-      YAML.load_file(File.join(FileUtils.pwd, 'surfers.yml'))['surfers']
+      YAML.load_file(File.join(File.dirname(__FILE__), 'surfers.yml'))['surfers']
     end
   end
 
   def self.run
-    raise "Your ./settings.yml file is missing" unless File.exists?(File.join(FileUtils.pwd, 'settings.yml'))
-    raise "Your ./swellnet_pages.yml file is missing" unless File.exists?(File.join(FileUtils.pwd, 'swellnet_pages.yml'))
-    raise "Your ./surfers.yml file is missing" unless File.exists?(File.join(FileUtils.pwd, 'surfers.yml'))
+    raise "Your settings.yml file is missing" unless File.exists?(File.join(File.dirname(__FILE__), 'settings.yml'))
+    raise "Your swellnet_pages.yml file is missing" unless File.exists?(File.join(File.dirname(__FILE__), 'swellnet_pages.yml'))
+    raise "Your surfers.yml file is missing" unless File.exists?(File.join(File.dirname(__FILE__), 'surfers.yml'))
     swellnet_pages.each do |page|
       doc = ''
       Net::HTTP::Proxy(settings['proxy']['host'],
