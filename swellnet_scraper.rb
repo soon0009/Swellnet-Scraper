@@ -10,7 +10,7 @@ require 'fileutils'
 require 'yaml'
 
 module SwellnetScraper
-  DEBUG = true.freeze
+  DEBUG = false.freeze
 
   @@settings = nil
   def self.settings
@@ -52,11 +52,13 @@ module SwellnetScraper
       email_subject += " #{$~[1]}" if /(Surf\:.*)\n/.match(content)
       email_subject += settings['program_email']['append_to_subject'].to_s
 
+      effective_date = /(Effective from\:.*)\n/.match(content) ? "#{$~[1]}" : ""
+
       doc.css('ul.reportstats').each do |reportstats|
         content += "\n" + Sanitize.clean(reportstats.next_sibling.children.first.to_s)
       end
 
-      if is_updated?(page['slug'], content)
+      if is_updated?(page['slug'], effective_date)
         surfers.each do |surfer|
           send_email(settings['program_email']['email_address'], surfer['email'], email_subject, content) if surfer['swellnet_pages'].include? page['slug']
         end 
